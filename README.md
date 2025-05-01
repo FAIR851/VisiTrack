@@ -79,21 +79,9 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL
 );
 
----------------------------------------------------------
-✅ STEP 5: SETUP PHP PROJECT IN VS CODE
----------------------------------------------------------
-1. Go to: C:\xampp\htdocs
-2. Create a folder named: visitor_system
-3. Open it in VS Code
-4. Create the files:
-   - index.php
-   - register.php
-   - style.css
-
-Use Live Server for frontend preview, and `http://localhost/visitor_system/index.php` to test PHP backend.
 
 ---------------------------------------------------------
-✅ STEP 6: CONFIGURE PHP MAIL FUNCTION
+✅ STEP 5: CONFIGURE PHP MAIL FUNCTION
 ---------------------------------------------------------
 
 Edit php.ini (located at: C:\xampp\php\php.ini)
@@ -122,12 +110,12 @@ auth_password=curdwywwbistkodi
 force_sender=imtheonlyoneknows61@gmail.com
 
 ---------------------------------------------------------
-✅ STEP 7: RESTART XAMPP
+✅ STEP 6: RESTART XAMPP
 ---------------------------------------------------------
 - After editing configurations, restart Apache from XAMPP Control Panel.
 
 ---------------------------------------------------------
-✅ STEP 8: WATCH TUTORIAL VIDEO
+✅ STEP 7: WATCH TUTORIAL VIDEO
 ---------------------------------------------------------
 📺 https://www.youtube.com/watch?v=UpHzA_buInY
 
