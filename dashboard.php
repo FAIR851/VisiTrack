@@ -8,6 +8,36 @@ if (!isset($_SESSION['email'])) {
 }
 
 $email = $_SESSION['email'];
+
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'visit_time';
+$order = isset($_GET['order']) ? $_GET['order'] : 'DESC';
+
+// Search logic
+$search = '';
+if (isset($_GET['search']) && !empty($_GET['search'])) {
+    $search = mysqli_real_escape_string($conn, $_GET['search']);
+    $search_condition = "WHERE Lastname LIKE '%$search%' OR Firstname LIKE '%$search%' OR Email LIKE '%$search%'";
+} else {
+    $search_condition = '';
+}
+
+// Pagination logic
+$records_per_page = 13;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+if ($page < 1) {
+    $page = 1;
+}
+$offset = ($page - 1) * $records_per_page;
+
+// Get total number of records
+$count_query = "SELECT COUNT(*) as total FROM visitors $search_condition";
+$count_result = mysqli_query($conn, $count_query);
+$total_records = mysqli_fetch_assoc($count_result)['total'];
+$total_pages = ceil($total_records / $records_per_page);
+
+// Main query with pagination
+$query = "SELECT * FROM visitors $search_condition ORDER BY $sort $order LIMIT $offset, $records_per_page";
+$result = mysqli_query($conn, $query);
 ?>
 
 <!DOCTYPE html>
@@ -54,9 +84,13 @@ $email = $_SESSION['email'];
             
         </ul>
     </nav>
+
+
+
     <main>
         <div id="main-content">
             <h1 class="header">VisiTrack</h1>
+
             <a href="logbook.php" class="register-btn">Register</a>
             <div class="table-container">
             <table>
@@ -77,10 +111,10 @@ $email = $_SESSION['email'];
                 </tr>
             </thead>
             <?php
-            // Calculate the datetime 24 hours ago
+            
             $twentyFourHoursAgo = date('Y-m-d H:i:s', strtotime('-24 hours'));
             
-            // Query to get only records from the last 24 hours
+            // Query to get only records from the last 24 hours pag tapos mapupunta sa archive 
             $query = mysqli_query($conn, "SELECT * FROM visitors 
                                         WHERE CONCAT(visit_date, ' ', visit_time) >= '$twentyFourHoursAgo'
                                         ORDER BY visit_date DESC, visit_time DESC");
@@ -99,13 +133,48 @@ $email = $_SESSION['email'];
                     <td><?php echo $row['Municipality']; ?></td>
                     <td><?php echo $row['Barangay_Village']; ?></td>
                     <td><?php echo $row['visitor_type']; ?></td>
-                    <td><?php echo $row['visit_time']; ?></td>
+                    <td><?php echo date("g:i A", strtotime($row['visit_time'])); ?></td>
                     <td><?php echo $row['visit_date']; ?></td>
                 </tr>
             </tbody>
             <?php } ?>
         </table>
             </div>
+        </div>
+        <div class="pagination">
+            <?php if ($page > 1): ?>
+                <a href="?page=1&sort=<?= $sort ?>&order=<?= $order ?>&search=<?= urlencode($search) ?>">First</a>
+                <a href="?page=<?= $page - 1 ?>&sort=<?= $sort ?>&order=<?= $order ?>&search=<?= urlencode($search) ?>">Prev</a>
+            <?php else: ?>
+                <span class="disabled">First</span>
+                <span class="disabled">Prev</span>
+            <?php endif; ?>
+            
+            <?php 
+            // Show page numbers
+            $start_page = max(1, $page - 2);
+            $end_page = min($total_pages, $page + 2);
+            
+            if ($start_page > 1) {
+                echo '<span>...</span>';
+            }
+            
+            for ($i = $start_page; $i <= $end_page; $i++): ?>
+                <a href="?page=<?= $i ?>&sort=<?= $sort ?>&order=<?= $order ?>&search=<?= urlencode($search) ?>" <?= ($i == $page) ? 'class="active"' : '' ?>><?= $i ?></a>
+            <?php endfor; ?>
+            
+            <?php if ($end_page < $total_pages) {
+                echo '<span>...</span>';
+            }
+            ?>
+            
+            <?php if ($page < $total_pages): ?>
+                <a href="?page=<?= $page + 1 ?>&sort=<?= $sort ?>&order=<?= $order ?>&search=<?= urlencode($search) ?>">Next</a>
+                <a href="?page=<?= $total_pages ?>&sort=<?= $sort ?>&order=<?= $order ?>&search=<?= urlencode($search) ?>">Last</a>
+            <?php else: ?>
+                <span class="disabled">Next</span>
+                <span class="disabled">Last</span>
+            <?php endif; ?>
         </div>
     </main>
     <script src="scriptss.js"></script>
