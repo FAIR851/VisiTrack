@@ -132,7 +132,5 @@ force_sender=imtheonlyoneknows61@gmail.com
 📺 https://www.youtube.com/watch?v=UpHzA_buInY
 
 ---------------------------------------------------------
-💡 DESIGN TIP: Make your login background unique
----------------------------------------------------------
-Palitan yung background ng login page mo para hindi magmukhang kaparehas ng ibang system. Use your own images, color theme, or use Google Fonts + CSS to personalize.
+
 
