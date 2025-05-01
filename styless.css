@@ -282,3 +282,21 @@ tr:hover td {
         width: 100%;
     }
 }
+
+.export-btn {
+    position: absolute;
+    right: 20px;
+    background-color: darkcyan; 
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.export-btn:hover {
+    background-color: #45a049; 
+        }
