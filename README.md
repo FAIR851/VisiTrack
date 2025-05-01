@@ -133,4 +133,47 @@ force_sender=imtheonlyoneknows61@gmail.com
 
 ---------------------------------------------------------
 
+GUIDE: RUN YOUR PHP PROJECT WITH XAMPP + VS CODE
+
+--------------------------------------------------
+STEP 1: Move Your Project to 'htdocs'
+--------------------------------------------------
+1. Go to your XAMPP installation folder:
+   C:\\xampp\\htdocs
+
+2. Copy or move your project folder (e.g., visitor_system) into the htdocs folder.
+   Example: C:\\xampp\\htdocs\\visitor_system
+
+--------------------------------------------------
+STEP 2: Open Project in VS Code
+--------------------------------------------------
+1. Open Visual Studio Code
+2. Click File > Open Folder
+3. Navigate to: C:\\xampp\\htdocs\\visitor_system
+4. Click "Select Folder"
+5. Your code is now opened in VS Code.
+
+--------------------------------------------------
+STEP 3: Start XAMPP Services
+--------------------------------------------------
+1. Open XAMPP Control Panel
+2. Click "Start" for:
+   - Apache
+   - MySQL (if you use a database)
+
+--------------------------------------------------
+STEP 4: Run the Project in Browser
+--------------------------------------------------
+1. Open your web browser
+2. Go to:
+   http://localhost/visitor_system
+
+3. If your main file is named index.php, it should load automatically.
+
+--------------------------------------------------
+Optional: Use Live Server (For HTML Files Only)
+--------------------------------------------------
+- Right-click any HTML file and select "Open with Live Server"
+- NOTE: Live Server will NOT work for PHP files.
+- For PHP files, always use: http://localhost/project_name
 
