@@ -23,7 +23,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
 }
 
 // Pagination logic
-$records_per_page = 5;
+$records_per_page = 13;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 if ($page < 1) {
     $page = 1;
@@ -96,6 +96,9 @@ $result = mysqli_query($conn, $query);
                 </button>
             </form>
             <a href="logbook.php" class="register-btn">Register</a>
+            <form method="post" action="export.php">
+                    <button type="submit" name="export" class="export-btn">EXPORT ALL</button>
+            </form>
         </div>
         <div class="table-wrapper">
             <div class="table-container">
@@ -129,7 +132,7 @@ $result = mysqli_query($conn, $query);
                                 <td><?php echo htmlspecialchars($row['Municipality']); ?></td>
                                 <td><?php echo htmlspecialchars($row['Barangay_Village']); ?></td>
                                 <td><?php echo htmlspecialchars($row['visitor_type']); ?></td>
-                                <td><?php echo htmlspecialchars($row['visit_time']); ?></td>
+                                <td><?php echo date("g:i A", strtotime($row['visit_time'])); ?></td>
                                 <td><?php echo htmlspecialchars($row['visit_date']); ?></td>
                             </tr>
                         <?php } ?>
